@@ -86,16 +86,15 @@ option( BUILD_clSPARSE "Setup clSPARSE to use all the external dependencies" ON 
 #option( BUILD_clBLAS "Install clBLAS as an external dependency" ON )
 option( BUILD_MTX "Download sparse matrix files for bench/test" OFF )
 option( BUILD_SAMPLES "Build sample program using clSPARSE lib" OFF )
-option( USE_SYSTEM_CL2HPP "Use cl2.hpp installed on system" OFF)
 # Query the user for which version of OpenCL they wish to build the library for
 set( BUILD_CLVERSION "1.2" CACHE STRING "The version of OpenCL we wish to compile the library against" )
 set_property( CACHE BUILD_CLVERSION PROPERTY STRINGS 2.0 1.2 1.1 )
 
 
 # Comment this out because this does not work yet
-set( clSPARSE.Dependencies )
-set( clSPARSE.Cmake.Args )
-set( clSPARSE.Samples.Cmake.Args )
+#set( clSPARSE.Dependencies )
+#set( clSPARSE.Cmake.Args )
+#set( clSPARSE.Samples.Cmake.Args )
 
 # Pass OPENCL_ROOT along to subproject if users provides path
 if( DEFINED OPENCL_ROOT )
@@ -106,24 +105,6 @@ endif( )
 if( DEFINED NMAKE_COMPILE_VERBOSE )
   list( APPEND clSPARSE.Cmake.Args -DNMAKE_COMPILE_VERBOSE=${NMAKE_COMPILE_VERBOSE} )
 endif( )
-
-# If the user selects, download, uncompress, and setup clBLAS
-#if( BUILD_clBLAS )
-#  message( STATUS "Setting up clBLAS external..." )
-#  include( ExternalclBLAS )
-#  message( STATUS "CLMATH_BLAS_ROOT configured as: " ${CLMATH_BLAS_ROOT} )
-#  list( APPEND clSPARSE.Dependencies clMATH.clblas )
-#  list( APPEND clSPARSE.Cmake.Args -DCLMATH_BLAS_ROOT=${CLMATH_BLAS_ROOT} )
-#else( )
-#  if( NOT DEFINED CLMATH_BLAS_ROOT AND NOT DEFINED ENV{CLMATH_BLAS_ROOT} AND BUILD_clSPARSE )
-#    message( SEND_ERROR "CLMATH_BLAS_ROOT must be provided if BUILD_clBLAS is disabled" )
-#  else( )
-#    if( NOT DEFINED CLMATH_BLAS_ROOT )
-#      set( CLMATH_BLAS_ROOT "$ENV{CLMATH_BLAS_ROOT}" )
-#    endif( )
-#    list( APPEND clSPARSE.Cmake.Args -DCLMATH_BLAS_ROOT=${CLMATH_BLAS_ROOT} )
-#  endif( )
-#endif( )
 
 # If the user selects, download, uncompress, and setup clBLAS
 if( BUILD_MTX )
@@ -149,7 +130,6 @@ if( BUILD_clSPARSE OR BUILD_SAMPLES )
         INSTALL_DIR clSPARSE-package
         CMAKE_ARGS ${clSPARSE.Cmake.Args} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         -DBUILD_CLVERSION=${BUILD_CLVERSION} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-        -DUSE_SYSTEM_CL2HPP:BOOL=${USE_SYSTEM_CL2HPP}
       )
     else( )
       # If the user does not want to build samples, then build clSPARSE but don't automatically
@@ -160,7 +140,7 @@ if( BUILD_clSPARSE OR BUILD_SAMPLES )
         SOURCE_DIR ${PROJECT_SOURCE_DIR}/src
         BINARY_DIR clSPARSE-build
         CMAKE_ARGS ${clSPARSE.Cmake.Args} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        -DBUILD_CLVERSION=${BUILD_CLVERSION} -DUSE_SYSTEM_CL2HPP:BOOL=${USE_SYSTEM_CL2HPP}
+        -DBUILD_CLVERSION=${BUILD_CLVERSION}
         INSTALL_COMMAND ""
       )
     endif( )
@@ -181,7 +161,6 @@ if( BUILD_clSPARSE OR BUILD_SAMPLES )
       BINARY_DIR clSPARSE-samples-build
       CMAKE_ARGS ${clSPARSE.Samples.Cmake.Args} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
       -DBUILD_CLVERSION=${BUILD_CLVERSION} -DBUILD64=${BUILD64} -DCMAKE_PREFIX_PATH=${install_dir}
-      -DUSE_SYSTEM_CL2HPP:BOOL=${USE_SYSTEM_CL2HPP}
       EXCLUDE_FROM_ALL 1
       INSTALL_COMMAND ""
     )

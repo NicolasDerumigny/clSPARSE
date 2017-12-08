@@ -185,10 +185,6 @@ install( FILES
 		DESTINATION
 			"./include" )
 
-if(NOT USE_SYSTEM_CL2HPP)
-    include(BuildCL2HPP)
-endif(NOT USE_SYSTEM_CL2HPP)
-
 add_subdirectory( library )
 add_subdirectory( clsparseTimer )
 
