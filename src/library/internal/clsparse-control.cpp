@@ -119,6 +119,7 @@ clsparseCreateControl( cl_command_queue queue )
 
     collectEnvParams( cPair.control );
 
+#ifdef USE_TIMER
     //	Discover and load the timer module if present
     void* timerLibHandle = LoadSharedLibrary( "lib", "clsparseTimer", false );
     if( timerLibHandle )
@@ -135,6 +136,7 @@ clsparseCreateControl( cl_command_queue queue )
             cPair.control->pDeviceTimer = static_cast<clsparseDeviceTimer*> ( pfclsparseTimer( CLSPARSE_GPU ) );
         }
     }
+#endif // USE_TIMER
 
     return cPair;
 }
