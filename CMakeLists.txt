@@ -83,7 +83,6 @@ endif( )
 
 # Various options below on configuring the build, and how to generate the solution files
 option( BUILD_clSPARSE "Setup clSPARSE to use all the external dependencies" ON )
-option( BUILD_Boost "Install Boost as an external dependency" ON )
 #option( BUILD_clBLAS "Install clBLAS as an external dependency" ON )
 option( BUILD_MTX "Download sparse matrix files for bench/test" OFF )
 option( BUILD_SAMPLES "Build sample program using clSPARSE lib" OFF )
@@ -97,23 +96,6 @@ set_property( CACHE BUILD_CLVERSION PROPERTY STRINGS 2.0 1.2 1.1 )
 set( clSPARSE.Dependencies )
 set( clSPARSE.Cmake.Args )
 set( clSPARSE.Samples.Cmake.Args )
-
-# If the user selects, download, uncompress, and setup Boost
-if( BUILD_Boost )
-  message( STATUS "Setting up Boost external..." )
-  include( ExternalBoost )
-  message( STATUS "BOOST_ROOT configured as: " ${BOOST_ROOT} )
-  list( APPEND clSPARSE.Dependencies Boost )
-  list( APPEND clSPARSE.Cmake.Args -DBOOST_ROOT=${BOOST_ROOT} )
-else( )
-  if( WIN32 AND (NOT DEFINED BOOST_ROOT AND NOT DEFINED ENV{BOOST_ROOT}) )
-    message( WARNING "BOOST_ROOT should be provided if Boost is not in a default location" )
-  else( )
-    if( DEFINED BOOST_ROOT )
-      list( APPEND clSPARSE.Cmake.Args -DBOOST_ROOT=${BOOST_ROOT} )
-    endif( )
-  endif( )
-endif( )
 
 # Pass OPENCL_ROOT along to subproject if users provides path
 if( DEFINED OPENCL_ROOT )

@@ -29,3 +29,6 @@
 
 # CMake
 *.txt.user
+
+# build folder
+build/*
