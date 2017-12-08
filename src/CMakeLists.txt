@@ -192,13 +192,6 @@ endif(NOT USE_SYSTEM_CL2HPP)
 add_subdirectory( library )
 add_subdirectory( clsparseTimer )
 
-if( BUILD_BENCHMARKS )
-	add_subdirectory( benchmarks )
-endif( )
-
-if( BUILD_TESTS )
-	add_subdirectory( tests )
-endif( )
 
 # Depending on whether we are building for 64 or 32 bit, construct common paths and names that subdirectories can reference for their use
 if( clSPARSE_BUILD64 )
