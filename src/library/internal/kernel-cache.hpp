@@ -23,7 +23,7 @@
 #define CL_HPP_MINIMUM_OPENCL_VERSION BUILD_CLVERSION
 #define CL_HPP_TARGET_OPENCL_VERSION BUILD_CLVERSION
 
-#include <CL/cl2.hpp>
+#include <CL/cl.hpp>
 
 #include <string>
 #include <map>

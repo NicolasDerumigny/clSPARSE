@@ -1,3 +1,6 @@
+# clSPARSE Library
+Lighter version of clSPARSE without Googletest and Boost v1.58 and test files in order to be integrated as a stand-alone dependency of any other project. Only OpenCL 1.x is supported (CL/cl.hpp, work in progress on this side).
+
 ## Build Status
 Pre-built binaries are available on our [releases page](https://github.com/clMathLibraries/clSPARSE/releases)
 
@@ -15,7 +18,7 @@ a collaboration between [AMD Inc.](http://www.amd.com/) and
 - bug fix release
   - Fixes for travis builds
   - Fix to the matrix market reader in the cuSPARSE benchmark to synchronize with the regular MM reader
-  - Replace cl.hpp with cl2.hpp (thanks to arrayfire)
+  - ~~Replace cl.hpp with cl2.hpp (thanks to arrayfire)~~ (removed for compatibilty reasons with older systems using CUDA libraries)
   - Fixes for the Nvidia platform; tested 352.79
     - Fixed buffer overruns in CSR-Adaptive kernels
     - Fix invalid memory access on Nvidia GPUs in CSR-Adaptive SpMV kernel
@@ -103,8 +106,8 @@ clSPARSE is licensed under the [Apache License, Version 2.0](http://www.apache.o
 - An OpenCL SDK (installed via `xcode-select --install`)
 
 ### Bench & Test infrastructure dependencies
--   Googletest v1.7
--   Boost v1.58
+-   ~~Googletest v1.7~~ (removed)
+-   ~~Boost v1.58~~ (removed)
 
 ## Footnotes
 <a name="return-tuple">[1]</a>: Changed to reflect CppCoreGuidelines: [F.21](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#a-namerf-out-multia-f21-to-return-multiple-out-values-prefer-returning-a-tuple-or-struct)
