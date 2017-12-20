@@ -68,10 +68,6 @@ set_target_properties( clsparseTimer PROPERTIES CXX_VISIBILITY_PRESET hidden)
 set_target_properties( clsparseTimer PROPERTIES VISIBILITY_INLINES_HIDDEN ON)
 target_link_libraries( clsparseTimer ${OPENCL_LIBRARIES} )
 
-if(NOT USE_SYSTEM_CL2HPP)
-    add_dependencies(clsparseTimer cl2hpp)
-endif(NOT USE_SYSTEM_CL2HPP)
-
 # Package that helps me set visibility for function names exported from shared library
 GENERATE_EXPORT_HEADER( clsparseTimer )
 
